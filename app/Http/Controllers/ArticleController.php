@@ -8,6 +8,10 @@ use App\Http\Requests\ArticleRequest;
 use App\Article;
 
 class ArticleController extends Controller {
+  
+  function __construct() {
+    $this->middleware('auth');
+  }
 
     /**
      * Display a listing of the resource.
@@ -15,7 +19,8 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
+      $articles = Article::all();
+      return view('article.list-article');
     }
 
     /**
@@ -70,8 +75,8 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(Article $article) {
+        return view('article.edit-article', ['article' => $article]);
     }
 
     /**

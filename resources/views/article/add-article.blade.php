@@ -1,29 +1,18 @@
 @extends('app')
 @section('content')
-
 <div class="container">
-    <div class="row">
-        @include('errors.error')
-        {!! Form::open(['url' => 'articles', 'method' => 'post']) !!}
-        <div class="form-group">
-            <label for="title">Title</label>
-            {!! Form::text('title', '', ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Enter title']) !!}
+  <div class="row">
+    <div class="panel panel-default col-md-8 col-md-offset-2">
+      <div class="panel-heading">Add article</div>
+      <div class="panel-body">
+        <div class="col-md-10 col-md-offset-1">
+          @include('errors.error')
+          {!! Form::open(['url' => 'articles', 'method' => 'post']) !!}
+            @include('article.partials.article-form', ['submit_btn' => 'Add article'])
+          {!! Form::close() !!}
         </div>
-        
-        <div class="form-group">
-            <label for="text">Text</label>
-            {!! Form::textarea('text', '', ['class' => 'form-control', 'id' => 'text', 'placeholder' => 'Enter text']) !!}
-        </div>
-        
-        <div class="form-group">
-            <label for="publish_at">Publish on</label>
-            {!! Form::date('published_at', '', ['class' => 'form-control', 'id' => 'publish_at']) !!}
-        </div>
-        {!! Form::submit('Add article', ['class' => 'btn btn-submit']) !!}
-        {!! Form::close() !!}
+      </div>
     </div>
+  </div>
 </div>
 @endsection
-
-
-

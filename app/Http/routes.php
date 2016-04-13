@@ -22,3 +22,4 @@ Route::post('signup', [ 'as' => 'register' , 'uses' => 'Auth\AuthController@post
 Route::get('logout', [ 'as' => 'logout' , 'uses' => 'Auth\AuthController@logout']);
 
 Route::resource('articles', 'ArticleController');
+

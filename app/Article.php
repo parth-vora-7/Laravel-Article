@@ -11,4 +11,5 @@ class Article extends Model
 //        'text',
 //        'published_at'
 //    ];
+  protected $dates = ['published_at'];
 }
