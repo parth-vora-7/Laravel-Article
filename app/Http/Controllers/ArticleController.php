@@ -34,17 +34,23 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request) {
-/*         Simple method to validate the inputs:  */
+/*        Simple method to validate the inputs:  */
 //        $this->validate($request, array(
 //            'title' => 'required|min:5|max:25',
 //            'text' => 'required|min:5|max:40',
 //            'published_at' => 'required|date'
-//        ));
-      //  dd($request->all());
+//        ));  
         
-        //$article = new Article::save($request->all());
-        //$article->save($request->all());
-        dd($article);
+/* Save record using save() */        
+//        $article = new Article;
+//        $article->title = $request->get('title');
+//        $article->text = $request->get('text');
+//        $article->published_at = $request->get('published_at');
+//        $article->save();
+        
+/* Save record using create() - Mass assignment */        
+        $article = Article::create($request->all());
+//        retutn  view();
         
     }
 
