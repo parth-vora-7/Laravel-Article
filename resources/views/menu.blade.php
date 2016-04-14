@@ -13,6 +13,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>{!! link_to('/', 'Home') !!}</li>
+                @if(Auth::user())
+                <li>{!! link_to('articles', 'Articles') !!}</li>
+                <li>{!! link_to('articles/create', 'Add article') !!}</li>
+                @endif
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

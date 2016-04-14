@@ -9,7 +9,7 @@
 </div>
 
 <div class="form-group">
-  {!! Form::label('publish_at', 'Publish on') !!}
-  {!! Form::date('published_at', null, ['class' => 'form-control', 'id' => 'publish_at']) !!}
+  {!! Form::label('published_at', 'Publish on') !!}
+  {!! Form::date('published_at', date('Y-m-d'), ['class' => 'form-control', 'id' => 'published_at']) !!}
 </div>
 {!! Form::submit($submit_btn, ['class' => 'btn btn-submit']) !!}

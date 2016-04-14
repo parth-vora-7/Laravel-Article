@@ -8,10 +8,10 @@ use App\Http\Requests\ArticleRequest;
 use App\Article;
 
 class ArticleController extends Controller {
-  
-  function __construct() {
-    $this->middleware('auth');
-  }
+
+    function __construct() {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-      $articles = Article::all();
-      return view('article.list-article');
+        $articles = Article::all();
+        return view('article.list-article', ['articles' => $articles]);
     }
 
     /**
@@ -39,24 +39,23 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request) {
-/*        Simple method to validate the inputs:  */
+        /*        Simple method to validate the inputs:  */
 //        $this->validate($request, array(
 //            'title' => 'required|min:5|max:25',
 //            'text' => 'required|min:5|max:40',
 //            'published_at' => 'required|date'
 //        ));  
-        
-/* Save record using save() */        
+
+        /* Save record using save() */
 //        $article = new Article;
 //        $article->title = $request->get('title');
 //        $article->text = $request->get('text');
 //        $article->published_at = $request->get('published_at');
 //        $article->save();
-        
-/* Save record using create() - Mass assignment */        
+
+        /* Save record using create() - Mass assignment */
         $article = Article::create($request->all());
 //        retutn  view();
-        
     }
 
     /**
@@ -86,8 +85,14 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Article $article, ArticleRequest $request) {
+        if ($article->update($request->all())) {
+         //   Flash::success('Your article is successfully updated !!!');
+            return redirect('articles');
+        } else {
+        //    Flash::error('Error occoured while updating article !!!');
+            return view('article.edit-article', compact('article'));
+        }
     }
 
     /**
