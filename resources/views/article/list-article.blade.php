@@ -3,7 +3,7 @@
 <div class="container">
     <div id="blog" class="row"> 
         @foreach($articles as $article)
-        <div class="col-md-10 blogShort">
+        <div class="col-md-12 blogShort">
             <h1>{{ $article->title }}</h1>
             <em>Posted on: {{ $article->created_at }}</em>
             <article>{{ $article->text }}</article>
@@ -12,4 +12,6 @@
             {!! link_to('articles/' . $article->id, 'Read more', ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
         </div>
         @endforeach
-@endsection
+        {!! $articles->links() !!}
+    </div>
+    @endsection
