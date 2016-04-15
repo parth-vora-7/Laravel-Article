@@ -15,5 +15,6 @@
       {!! link_to('articles/' . $article->id, 'Read more', ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
 
     </div>
-    @endforeach
     @endsection
+  </div>
+</div>
