@@ -102,7 +102,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+        dd($id);
     }
 
 }
