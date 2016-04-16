@@ -7,6 +7,9 @@
             <em>Posted on: {{ $article->created_at }}</em>
             <article>{{ $article->text }}</article>
         </div>
+        <div>
+            @include('article/partials/article-links')
+        </div>
     </div>
 </div>
 @endsection

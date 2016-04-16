@@ -66,7 +66,12 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article) {
-        return view('article.article', ['article' => $article]);
+        if($article->trashed()) {
+            $delete = 1;
+        } else {
+            $delete = 0;
+        }
+        return view('article.article', ['article' => $article, 'delete' => $delete]);
     }
 
     /**
@@ -118,7 +123,7 @@ class ArticleController extends Controller {
     
     public function getTrash()
     {
-        $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->paginate(5);
+        $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('uid', \Auth::User()->id)->paginate(5);
         return view('article.list-article', ['articles' => $articles, 'delete' => 1]);
     }
     

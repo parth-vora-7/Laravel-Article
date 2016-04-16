@@ -26,3 +26,4 @@ Route::get('restore/{articles}', [ 'as' => 'articles.restore' , 'uses' => 'Artic
 
 Route::resource('articles', 'ArticleController');
 
+

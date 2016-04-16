@@ -22,6 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Article::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
+        'uid' => $faker->numberBetween(1, 4),
         'text' => $faker->text(1000),
         'published_at' => $faker->date,
     ];
