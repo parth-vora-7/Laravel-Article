@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         //factory(User::class, 10)->create();
         
         Article::truncate();
-        factory(Article::class, 10)->create();
+        factory(Article::class, 25)->create();
     }
 }

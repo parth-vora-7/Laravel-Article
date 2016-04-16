@@ -19,7 +19,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $articles = Article::orderBy('published_at', 'desc')->paginate(10);
+        $articles = Article::orderBy('published_at', 'desc')->paginate(5);
         return view('article.list-article', ['articles' => $articles]);
     }
 
@@ -56,7 +56,7 @@ class ArticleController extends Controller {
         /* Save record using create() - Mass assignment */
         //dd(\Auth::user()->id);
         $article = \Auth::User()->articles()->create($request->all());
-//        retutn  view();
+        return redirect('articles');
     }
 
     /**
@@ -102,8 +102,9 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        dd($id);
+    public function destroy(Article $article) {
+        $article->delete();
+        return redirect('articles');
     }
 
 }
