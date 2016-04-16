@@ -30,6 +30,9 @@ class RouteServiceProvider extends ServiceProvider
         
 /********** Route model binding ************/
         $router->model('articles', 'App\Article');
+        $router->bind('articles', function($id) {
+            return \App\Article::withTrashed()->findOrFail($id);
+        });
 // If need to apply some specific conditions
 //      $router->bind('articles', function($id) {
 //        return \App\Article::published()->findOrFail($id);

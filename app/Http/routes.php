@@ -21,5 +21,8 @@ Route::get('signup', ['as' => 'signup', 'uses' => 'Auth\AuthController@getRegist
 Route::post('signup', [ 'as' => 'register' , 'uses' => 'Auth\AuthController@postRegister']);
 Route::get('logout', [ 'as' => 'logout' , 'uses' => 'Auth\AuthController@logout']);
 
+Route::get('trash', [ 'as' => 'trash.list' , 'uses' => 'ArticleController@getTrash']);
+Route::get('restore/{articles}', [ 'as' => 'articles.restore' , 'uses' => 'ArticleController@restoreArticle']);
+
 Route::resource('articles', 'ArticleController');
 

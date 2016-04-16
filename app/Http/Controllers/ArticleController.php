@@ -19,8 +19,8 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $articles = Article::orderBy('published_at', 'desc')->paginate(5);
-        return view('article.list-article', ['articles' => $articles]);
+        $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
+        return view('article.list-article', ['articles' => $articles, 'delete' => 0]);
     }
 
     /**
@@ -103,7 +103,33 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article) {
-        $article->delete();
+        if($article->trashed()) {
+            $article->forceDelete();
+        } else {
+            $article->delete();
+        }       
+        return redirect('articles');
+    }
+    
+    /**
+     * To show list of soft deleted articles
+     * return 
+     */
+    
+    public function getTrash()
+    {
+        $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->paginate(5);
+        return view('article.list-article', ['articles' => $articles, 'delete' => 1]);
+    }
+    
+    /**
+     * To restore a soft deleted article
+     * @param \App\Article $article
+     */
+    
+    public function restoreArticle(Article $article) 
+    {
+        $article->restore();
         return redirect('articles');
     }
 

@@ -24,6 +24,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
+    /**
+     * Get articles of a user
+     * 
+     * @return mix
+     */
+    
     public function articles() {
         return $this->hasMany('App\Article', 'uid');
     }

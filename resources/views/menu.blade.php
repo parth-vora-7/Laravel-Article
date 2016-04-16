@@ -14,8 +14,9 @@
             <ul class="nav navbar-nav">
                 <li>{!! link_to('/', 'Home') !!}</li>
                 @if(Auth::user())
-                <li>{!! link_to('articles', 'Articles') !!}</li>
-                <li>{!! link_to('articles/create', 'Add article') !!}</li>
+                <li>{!! link_to_route('articles.index', 'Articles') !!}</li>
+                <li>{!! link_to_route('articles.create', 'Add article') !!}</li>
+                <li>{!! link_to_route('trash.list', 'Trash') !!}</li>
                 @endif
             </ul>
 
