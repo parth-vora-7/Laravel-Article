@@ -5,7 +5,7 @@
     <div id="blog" class="row class="col-md-10 col-md-offset-1 blogShort"> 
          @foreach($articles as $article)
          <div>
-            <h1>{{ $article->title }}</h1>
+            <h1>{!! link_to('articles/' . $article->id, $article->title) !!}</h1>
             <div>
                 <em>Posted by: {{ \App\User::find($article->uid)->name }}</em> |
                 <em>Posted on: {{ $article->created_at }}</em>
