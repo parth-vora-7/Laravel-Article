@@ -1,6 +1,7 @@
 @extends('app')
 @section('content')
 <div class="container">
+    @include('message')
     @if($articles->all())
     <div id="blog" class="row class="col-md-10 col-md-offset-1 blogShort"> 
          @foreach($articles as $article)
@@ -14,7 +15,7 @@
             <div>
                 @include('article/partials/article-links')
             </div>
-            
+
         </div>
         @endforeach
         <div class="pagination">

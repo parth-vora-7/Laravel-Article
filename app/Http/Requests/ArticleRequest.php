@@ -22,7 +22,7 @@ class ArticleRequest extends Request {
      */
     public function rules() {
         return [
-            'title' => 'required|min:5|max:50',
+            'title' => 'required|unique:articles|min:5|max:50',
             'text' => 'required|min:5|max:1000',
             'published_at' => 'required|date'
         ];

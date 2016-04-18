@@ -54,9 +54,16 @@ class ArticleController extends Controller {
 //        $article->save();
 
         /* Save record using create() - Mass assignment */
-        //dd(\Auth::user()->id);
         $article = \Auth::User()->articles()->create($request->all());
-        return redirect('articles');
+        if($article) {
+            $request->session()->flash('alert-class', 'alert-success');
+            $request->session()->flash('message', 'New article has been created successfully.');
+            return redirect('articles');
+        } else {
+            $request->session()->flash('alert-class', 'alert-danger');
+            $request->session()->flash('message', 'Some error occured.');
+            return redirect('articles');
+        }
     }
 
     /**
@@ -93,10 +100,12 @@ class ArticleController extends Controller {
      */
     public function update(Article $article, ArticleRequest $request) {
         if ($article->update($request->all())) {
-         //   Flash::success('Your article is successfully updated !!!');
+            $request->session()->flash('alert-class', 'alert-success');
+            $request->session()->flash('message', 'Article has been updated successfully.');
             return redirect('articles');
         } else {
-        //    Flash::error('Error occoured while updating article !!!');
+            $request->session()->flash('alert-class', 'alert-danger');
+            $request->session()->flash('message', 'An error occoured while updating article.');
             return view('article.edit-article', compact('article'));
         }
     }
@@ -107,13 +116,18 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article) {
+    public function destroy(Article $article, Request $request) {
         if($article->trashed()) {
             $article->forceDelete();
+            $request->session()->flash('alert-class', 'alert-success');
+            $request->session()->flash('message', 'Article has been successfully removed.');
+            return redirect('trash');
         } else {
             $article->delete();
-        }       
-        return redirect('articles');
+            $request->session()->flash('alert-class', 'alert-success');
+            $request->session()->flash('message', 'Article has been successfully moved to trash.');
+            return redirect('articles');
+        }
     }
     
     /**
