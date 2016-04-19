@@ -1,4 +1,11 @@
-@if($article->uid == Auth::user()->id)
+@if(Auth::user()) 
+{{-- */ $user_id = Auth::user()->id  /*  --}}
+@else
+{{-- */ $user_id = 0  /*  --}}
+@endif;
+
+
+@if($article->uid == $user_id)
 {!! Form::open(['route' => ['articles.destroy' , $article->id], 'method' => 'delete']) !!}
 
 @if($delete)
@@ -14,7 +21,7 @@
 
 @endif
 
-@if($article->uid == Auth::user()->id)
+@if($article->uid == $user_id)
 {!! link_to_route('articles.edit', 'Edit', $article->id, ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
 @endif
 

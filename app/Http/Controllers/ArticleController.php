@@ -10,7 +10,7 @@ use App\Article;
 class ArticleController extends Controller {
 
     function __construct() {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
