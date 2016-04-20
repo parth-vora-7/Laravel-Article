@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use App\Article;
+use Auth;
 
 class ArticleController extends Controller {
 
@@ -54,7 +55,7 @@ class ArticleController extends Controller {
 //        $article->save();
 
         /* Save record using create() - Mass assignment */
-        $article = \Auth::User()->articles()->create($request->all());
+        $article = Auth::User()->articles()->create($request->all());
         if($article) {
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'New article has been created successfully.');
@@ -152,6 +153,15 @@ class ArticleController extends Controller {
         $request->session()->flash('message', 'Article has been restored successfully.');
         $article->restore();
         return redirect('articles');
+    }
+    
+    /**
+     * To get only logged in user's articles
+     */
+    
+    function userArticles() {
+        $articles = Article::myArticles()->withTrashed()->paginate(5);
+        return view('article.list-article', ['articles' => $articles, 'delete' => 0]);
     }
 
 }

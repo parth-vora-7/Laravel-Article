@@ -24,6 +24,7 @@ Route::get('logout', [ 'as' => 'logout' , 'uses' => 'Auth\AuthController@logout'
 Route::get('trash', [ 'as' => 'trash.list' , 'uses' => 'ArticleController@getTrash']);
 Route::get('restore/{articles}', [ 'as' => 'articles.restore' , 'uses' => 'ArticleController@restoreArticle']);
 
+Route::get('my-articles', [ 'as' => 'my-articles' , 'uses' => 'ArticleController@userArticles']);
 Route::resource('articles', 'ArticleController');
 
 

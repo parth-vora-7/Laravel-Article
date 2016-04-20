@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Article extends Model
 {
@@ -43,6 +44,14 @@ class Article extends Model
     public function scopePublished($query) 
     {
         $query->where('published_at', '<=' , Carbon::now()); 
+    }
+    
+     /**
+     * To filter logged in users articles
+     */
+    
+    public function scopeMyArticles($query) {
+        return $query->where('uid', Auth::User()->id);
     }
  
 }
