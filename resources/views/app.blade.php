@@ -8,9 +8,10 @@
 
 <!--	<link href="/css/app.css" rel="stylesheet">-->
         <link href="{!! asset('css/app.css') !!}" rel="stylesheet">
+		{!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
 	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,7 +26,9 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	{!! Html::script('script/jquery-2.2.3.min.js'); !!}
+	{!! Html::script('bootstrap/js/bootstrap.min.js'); !!}
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>  --!>
 </body>
 </html>

@@ -146,8 +146,10 @@ class ArticleController extends Controller {
      * @param \App\Article $article
      */
     
-    public function restoreArticle(Article $article) 
+    public function restoreArticle(Article $article, Request $request) 
     {
+        $request->session()->flash('alert-class', 'alert-success');
+        $request->session()->flash('message', 'Article has been restored successfully.');
         $article->restore();
         return redirect('articles');
     }

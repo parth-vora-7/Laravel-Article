@@ -2,7 +2,7 @@
 {{-- */ $user_id = Auth::user()->id  /*  --}}
 @else
 {{-- */ $user_id = 0  /*  --}}
-@endif;
+@endif
 
 
 @if($article->uid == $user_id)
