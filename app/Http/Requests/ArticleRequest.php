@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Gate;
+use App\Article;
 
 class ArticleRequest extends Request {
 
@@ -12,6 +14,9 @@ class ArticleRequest extends Request {
      * @return bool
      */
     public function authorize() {
+//        $article = $this->route('articles');        
+//        return Gate::allows('update-article', Article::findOrFail($article));
+        
         return true;
     }
 

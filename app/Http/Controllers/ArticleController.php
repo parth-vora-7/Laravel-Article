@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use App\Article;
 use Auth;
+use Gate;
 
 class ArticleController extends Controller {
 
@@ -88,7 +89,17 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article) {
+    public function edit(Article $article, Request $request) {
+// Method 1        
+//        if (Gate::denies('update-article', $article)) {
+//            abort(403);
+//        }
+        
+// Method 2
+        if($request->user()->cannot('update-article', $article)) {
+            abort(403);
+        }
+        
         return view('article.edit-article', ['article' => $article]);
     }
 
