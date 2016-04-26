@@ -15,7 +15,6 @@
             <div>
                 @include('article/partials/article-links')
             </div>
-
         </div>
         @endforeach
         <div class="pagination">

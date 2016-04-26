@@ -22,7 +22,7 @@ class ArticleController extends Controller {
      */
     public function index() {
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
-        return view('article.list-article', ['articles' => $articles, 'delete' => 0]);
+        return view('article.list-article', ['articles' => $articles]);
     }
 
     /**
@@ -75,12 +75,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article) {
-        if($article->trashed()) {
-            $delete = 1;
-        } else {
-            $delete = 0;
-        }
-        return view('article.article', ['article' => $article, 'delete' => $delete]);
+        return view('article.article', ['article' => $article]);
     }
 
     /**
@@ -128,7 +123,11 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article, Request $request) {
+    public function destroy(Article $article, Request $request) 
+    {
+        if($request->user()->cannot('delete-article', $article)) {
+            abort(403);
+        }
         if($article->trashed()) {
             $article->forceDelete();
             $request->session()->flash('alert-class', 'alert-success');
@@ -150,7 +149,7 @@ class ArticleController extends Controller {
     public function getTrash()
     {
         $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('uid', \Auth::User()->id)->paginate(5);
-        return view('article.list-article', ['articles' => $articles, 'delete' => 1]);
+        return view('article.list-article', ['articles' => $articles]);
     }
     
     /**
@@ -172,7 +171,7 @@ class ArticleController extends Controller {
     
     function userArticles() {
         $articles = Article::myArticles()->withTrashed()->paginate(5);
-        return view('article.list-article', ['articles' => $articles, 'delete' => 0]);
+        return view('article.list-article', ['articles' => $articles]);
     }
 
 }
