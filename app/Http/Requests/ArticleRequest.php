@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use Gate;
-use App\Article;
 
 class ArticleRequest extends Request {
 
@@ -26,8 +24,10 @@ class ArticleRequest extends Request {
      * @return array
      */
     public function rules() {
+       $article = $this->route('articles');        
+
         return [
-            'title' => 'required|unique:articles|min:5|max:50',
+            'title' => 'required|unique:articles,title,' . $article->id . '|min:5|max:50',
             'text' => 'required|min:5|max:1000',
             'published_at' => 'required|date'
         ];
