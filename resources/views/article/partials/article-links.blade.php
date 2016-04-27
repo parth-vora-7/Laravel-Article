@@ -1,9 +1,3 @@
-@if(Auth::user()) 
-{{-- */ $user_id = Auth::user()->id  /*  --}}
-@else
-{{-- */ $user_id = 0  /*  --}}
-@endif
-
 @can('delete-article', $article)
 {!! Form::open(['route' => ['articles.destroy' , $article->id], 'method' => 'delete']) !!}
 {!! Form::submit('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10']) !!}

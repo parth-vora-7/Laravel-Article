@@ -35,9 +35,11 @@ class AuthServiceProvider extends ServiceProvider
         });
         
         $gate->define('restore-article', function($user, $article) {
-             return $user->id === $article->uid;
+            if($article->trashed() && $user->id === $article->uid) {
+                return true;
+            } else {
+                return false;
+            }
         });
-
-        //
     }
 }

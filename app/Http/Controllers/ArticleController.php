@@ -106,6 +106,9 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Article $article, ArticleRequest $request) {
+        if($request->user()->cannot('update-article', $article)) {
+            abort(403);
+        }
         if ($article->update($request->all())) {
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been updated successfully.');
@@ -159,6 +162,9 @@ class ArticleController extends Controller {
     
     public function restoreArticle(Article $article, Request $request) 
     {
+        if($request->user()->cannot('restore-article', $article)) {
+            abort(403);
+        }
         $request->session()->flash('alert-class', 'alert-success');
         $request->session()->flash('message', 'Article has been restored successfully.');
         $article->restore();
