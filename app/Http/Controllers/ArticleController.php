@@ -135,12 +135,12 @@ class ArticleController extends Controller {
             $article->forceDelete();
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been successfully removed.');
-            return redirect('trash');
+            return back();
         } else {
             $article->delete();
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been successfully moved to trash.');
-            return redirect('articles');
+            return back();
         }
     }
     
@@ -168,7 +168,7 @@ class ArticleController extends Controller {
         $request->session()->flash('alert-class', 'alert-success');
         $request->session()->flash('message', 'Article has been restored successfully.');
         $article->restore();
-        return redirect('articles');
+        return back();
     }
     
     /**

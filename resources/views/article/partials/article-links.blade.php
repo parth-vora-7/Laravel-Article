@@ -1,7 +1,6 @@
+@include('article.partials.article-delete-confirmbox')
 @can('delete-article', $article)
-{!! Form::open(['route' => ['articles.destroy' , $article->id], 'method' => 'delete']) !!}
-{!! Form::submit('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10']) !!}
-{!! Form::close() !!}
+{!! Form::button('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10', 'data-toggle' => 'modal', 'data-target' => '#myModal']) !!}
 @endcan
 
 @can('restore-article', $article)

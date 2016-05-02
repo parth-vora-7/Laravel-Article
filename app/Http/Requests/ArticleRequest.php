@@ -24,10 +24,10 @@ class ArticleRequest extends Request {
      * @return array
      */
     public function rules() {
-       $article = $this->route('articles');        
-
+        $article = $this->route('articles');        
+        $article_id = ($article) ? $article->id : null;
         return [
-            'title' => 'required|unique:articles,title,' . $article->id . '|min:5|max:50',
+            'title' => 'required|unique:articles,title,' . $article_id . '|min:5|max:50',
             'text' => 'required|min:5|max:1000',
             'published_at' => 'required|date'
         ];
