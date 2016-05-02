@@ -179,5 +179,15 @@ class ArticleController extends Controller {
         $articles = Article::myArticles()->withTrashed()->paginate(5);
         return view('article.list-article', ['articles' => $articles]);
     }
-
+    
+    /*
+     * To display articles in grid view
+     */
+    
+    function gridView() {
+        $articles = Article::paginate(9);
+        dd($articles);
+        
+        return view('article.list-grid-article', ['articles' => $articles]);
+    }
 }

@@ -27,4 +27,6 @@ Route::get('restore/{articles}', [ 'as' => 'articles.restore' , 'uses' => 'Artic
 Route::get('my-articles', [ 'as' => 'my-articles' , 'uses' => 'ArticleController@userArticles']);
 Route::resource('articles', 'ArticleController');
 
+Route::resource('articles-grid', 'ArticleController@gridView');
+
 
