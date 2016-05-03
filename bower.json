@@ -1,0 +1,8 @@
+{
+  "name": "App",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "angular-isotope": "^0.1.14"
+  }
+}

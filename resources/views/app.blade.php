@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="article-app">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
-
-<!--	<link href="/css/app.css" rel="stylesheet">-->
-        <link href="{!! asset('css/app.css') !!}" rel="stylesheet">
-		{!! Html::style('bootstrap/css/bootstrap.min.css') !!}
+        {!! Html::style('css/app.css') !!}
+        {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
 	<!-- Fonts -->
-
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,15 +17,17 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body ng-controller="article-ctrl">
+    <div hljs><li ng-repeat="x in xList | orderBy:'date'" isotope-item>x</li></div>
+
 	@include('menu')
-
 	@yield('content')
-
 	<!-- Scripts -->
 	{!! Html::script('script/jquery-2.2.3.min.js'); !!}
-	{!! Html::script('bootstrap/js/bootstrap.min.js'); !!}
-	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>  --!>
+        {!! Html::script('bootstrap/js/bootstrap.min.js'); !!}
+        {!! Html::script('angular/angular.min.js'); !!}
+        {!! Html::script('script/jquery.isotope.js'); !!}        
+        {!! Html::script('angular-isotope/dist/angular-isotope.min.js'); !!}
+        {!! Html::script('script/app.js'); !!}    
 </body>
 </html>
