@@ -27,15 +27,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
         
         $gate->define('update-article', function($user, $article) {
-           return $user->id === $article->uid; 
+           return $user->id == $article->uid; 
         });
         
         $gate->define('delete-article', function($user, $article) {
-           return $user->id === $article->uid; 
+           return $user->id == $article->uid; 
         });
         
         $gate->define('restore-article', function($user, $article) {
-            if($article->trashed() && $user->id === $article->uid) {
+            if($article->trashed() && $user->id == $article->uid) {
                 return true;
             } else {
                 return false;

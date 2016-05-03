@@ -9,7 +9,7 @@
         <p>Do you really want to delete this article?</p>
       </div>
       <div class="modal-footer">
-        {!! Form::open(['route' => ['articles.destroy' , $article->id], 'method' => 'delete']) !!}
+        {!! Form::open(['method' => 'delete']) !!}
         {!! Form::submit('Delete', ['class' => 'btn-danger btn btn-blog pull-right marginBottom10']) !!}
         {!! Form::close() !!}
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

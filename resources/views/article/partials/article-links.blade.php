@@ -1,6 +1,5 @@
-@include('article.partials.article-delete-confirmbox')
 @can('delete-article', $article)
-{!! Form::button('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10', 'data-toggle' => 'modal', 'data-target' => '#myModal']) !!}
+{!! Form::button('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10 btn-delete', 'data-toggle' => 'modal', 'data-target' => '#myModal', 'data-id' => $article->id]) !!}
 @endcan
 
 @can('restore-article', $article)
