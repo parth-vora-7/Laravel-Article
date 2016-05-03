@@ -21,6 +21,9 @@
     </div>
     @endforeach
   </div>
+  <div>
+    {!! $articles->links() !!}
+  </div>
   @else
   <div><h4>No articles to display</h4></div>
   @endif

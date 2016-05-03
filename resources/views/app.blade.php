@@ -30,6 +30,7 @@
     {!! Html::script('angular/angular.min.js'); !!}
     {!! Html::script('script/isotope.pkgd.min.js'); !!}
     {!! Html::script('script/packery-mode.pkgd.min.js'); !!}
+    {!! Html::script('script/jquery.infinitescroll.min.js'); !!}
     {!! Html::script('script/app.js'); !!}    
     {!! Html::script('script/script.js'); !!}    
   </body>

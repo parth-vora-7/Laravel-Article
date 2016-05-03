@@ -21,7 +21,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $articles = Article::orderBy('published_at', 'desc')->published()->get();
+        $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
         return view('article.list-article', ['articles' => $articles]);
     }
 
