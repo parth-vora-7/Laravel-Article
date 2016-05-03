@@ -8,7 +8,7 @@
     @foreach($articles as $article)
     <div class="col-lg-4 article">
       <div class="panel panel-info">
-        <div class="panel-heading">{!! link_to('articles/' . $article->id, $article->title) !!}</div>
+        <div class="panel-heading"><h4>{!! link_to('articles/' . $article->id, $article->title) !!}</h4></div>
         <div class="panel-body">
           <div>
             <p><em>Posted by: {{ \App\User::find($article->uid)->name }}</em></p>
