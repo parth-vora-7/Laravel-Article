@@ -6,7 +6,7 @@
         <h4 class="modal-title">Delete article</h4>
       </div>
       <div class="modal-body">
-        <p>Do you really want to delete this article?</p>
+        <p>Do you really want to do this?</p>
       </div>
       <div class="modal-footer">
         {!! Form::open(['method' => 'delete']) !!}

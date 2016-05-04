@@ -128,19 +128,18 @@ class ArticleController extends Controller {
      */
     public function destroy(Article $article, Request $request) 
     {
-        if($request->user()->cannot('delete-article', $article)) {
-            abort(403);
-        }
-        if($article->trashed()) {
+        if($article->trashed() && $request->user()->can('delete-article', $article)) {
             $article->forceDelete();
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been successfully removed.');
             return back();
-        } else {
+        } else if (!$article->trashed() && $request->user()->can('trash-article', $article)) {
             $article->delete();
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been successfully moved to trash.');
             return back();
+        } else {
+            abort(403);
         }
     }
     

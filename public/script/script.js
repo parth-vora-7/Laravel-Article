@@ -6,8 +6,11 @@ $('.article-container').isotope({
 
 $(document).ready(function () {
   $('button.btn-delete').on('click', function () {
+    var type = $(this).data('type');
     var delete_url = APP_URL + '/articles/' + $(this).data('id');
     $('#myModal form').attr('action', delete_url);
+    $('#myModal .modal-title').text(type + ' artical');
+    $('#myModal .btn-danger').val(type);
   });
 
   $('.article-container').infinitescroll({
@@ -20,7 +23,3 @@ $(document).ready(function () {
     $('.article-container').isotope({layoutMode: 'packery'});
   });
 });
-
-
-
-

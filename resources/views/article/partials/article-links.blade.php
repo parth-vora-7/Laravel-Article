@@ -1,5 +1,9 @@
 @can('delete-article', $article)
-{!! Form::button('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10 btn-delete', 'data-toggle' => 'modal', 'data-target' => '#myModal', 'data-id' => $article->id]) !!}
+{!! Form::button('Delete', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10 btn-delete', 'data-toggle' => 'modal', 'data-target' => '#myModal', 'data-id' => $article->id, 'data-type' => 'Delete']) !!}
+@endcan
+
+@can('trash-article', $article)
+{!! Form::button('Trash', ['style' => 'background:none; border:none;color:red;', 'class' => 'btn btn-blog pull-right marginBottom10 btn-delete', 'data-toggle' => 'modal', 'data-target' => '#myModal', 'data-id' => $article->id, 'data-type' => 'Trash']) !!}
 @endcan
 
 @can('restore-article', $article)

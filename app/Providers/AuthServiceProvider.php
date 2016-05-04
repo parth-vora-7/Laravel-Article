@@ -5,8 +5,8 @@ namespace App\Providers;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
-{
+class AuthServiceProvider extends ServiceProvider {
+
     /**
      * The policy mappings for the application.
      *
@@ -22,24 +22,36 @@ class AuthServiceProvider extends ServiceProvider
      * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
-    public function boot(GateContract $gate)
-    {
+    public function boot(GateContract $gate) {
         $this->registerPolicies($gate);
-        
+
         $gate->define('update-article', function($user, $article) {
-           return $user->id == $article->uid; 
+            return $user->id == $article->uid;
         });
-        
+
         $gate->define('delete-article', function($user, $article) {
-           return $user->id == $article->uid; 
+            if ($article->trashed() && ($user->id == $article->uid)) {
+                return true;
+            } else {
+                return false;
+            }
         });
-        
+
+        $gate->define('trash-article', function($user, $article) {
+            if (!$article->trashed() && ($user->id == $article->uid)) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
         $gate->define('restore-article', function($user, $article) {
-            if($article->trashed() && $user->id == $article->uid) {
+            if ($article->trashed() && $user->id == $article->uid) {
                 return true;
             } else {
                 return false;
             }
         });
     }
+
 }
