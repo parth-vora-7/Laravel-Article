@@ -12,7 +12,7 @@ use Gate;
 class ArticleController extends Controller {
 
     function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'gridView']]);
     }
 
     /**
@@ -23,6 +23,15 @@ class ArticleController extends Controller {
     public function index() {
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
         return view('article.list-article', ['articles' => $articles]);
+    }
+        
+    /*
+     * To display articles in grid view
+     */
+    
+    function gridView() {
+        $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
+        return view('article.list-grid-article', ['articles' => $articles]);
     }
 
     /**
@@ -177,16 +186,5 @@ class ArticleController extends Controller {
     function userArticles() {
         $articles = Article::myArticles()->withTrashed()->paginate(5);
         return view('article.list-article', ['articles' => $articles]);
-    }
-    
-    /*
-     * To display articles in grid view
-     */
-    
-    function gridView() {
-        $articles = Article::paginate(9);
-        dd($articles);
-        
-        return view('article.list-grid-article', ['articles' => $articles]);
     }
 }
