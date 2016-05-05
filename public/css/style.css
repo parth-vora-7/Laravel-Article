@@ -1,3 +1,6 @@
 ul.pagination {
     display: none;
 }
+.navbar-right .bootstrap-switch {
+    float: left;
+}

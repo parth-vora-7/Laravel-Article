@@ -20,9 +20,10 @@ class ArticleController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index(Request $request) {
+        $mode = $request->session()->get('key', 'default');
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
-        return view('article.list-article', ['articles' => $articles]);
+        return view('article.article-' . $mode, ['articles' => $articles]);
     }
         
     /*
@@ -31,7 +32,7 @@ class ArticleController extends Controller {
     
     function gridView() {
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
-        return view('article.list-grid-article', ['articles' => $articles]);
+        return view('article.article-grid', ['articles' => $articles]);
     }
 
     /**
@@ -157,10 +158,11 @@ class ArticleController extends Controller {
      * return 
      */
     
-    public function getTrash()
+    public function getTrash(Request $request)
     {
+        $mode = $request->session()->get('key', 'default');
         $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('uid', \Auth::User()->id)->paginate(5);
-        return view('article.list-article', ['articles' => $articles]);
+        return view('article.article-' . $mode, ['articles' => $articles]);
     }
     
     /**
@@ -181,10 +183,26 @@ class ArticleController extends Controller {
     
     /**
      * To get only logged in user's articles
+     * 
      */
     
-    function userArticles() {
+    function userArticles(Request $request) {
+        $mode = $request->session()->get('key', 'default');
         $articles = Article::myArticles()->withTrashed()->paginate(5);
-        return view('article.list-article', ['articles' => $articles]);
+        return view('article.article-' . $mode, ['articles' => $articles]);
+    }
+    
+    /*
+     * To change the article view mode
+     * 
+     */
+    
+    function viewMode(Request $request) {
+        if($request->get('mode') == "true") {
+            $mode = 'grid';
+        } else {
+            $mode = 'list';
+        }
+        $request->session()->put('key', $mode);
     }
 }

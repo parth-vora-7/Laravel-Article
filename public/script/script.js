@@ -22,4 +22,17 @@ $(document).ready(function () {
     $('.article-container').isotope('insert', newElements);
     $('.article-container').isotope({layoutMode: 'packery'});
   });
+  $(".view-toggle").bootstrapSwitch();
+  $('.view-toggle').on('switchChange.bootstrapSwitch', function(event, state) {
+      $.ajax({
+          url: APP_URL + '/atrical-view-mode',
+          method: 'get',
+          dataType: 'json',
+          data: {mode: state},
+          success: function(res) {
+              location.reload();
+          }
+      });
+});
+  
 });

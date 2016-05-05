@@ -22,6 +22,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <l1>View mode<input type="checkbox" name="my-checkbox" checked class="view-toggle" data-on-text="Gird" data-off-text="List"></l1>
                 @if (Auth::guest())
                 <li>{!! link_to_route('login', 'Login') !!}</li>
                 <li>{!! link_to_route('signup', 'Sign up') !!}</a></li>  

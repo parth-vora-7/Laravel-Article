@@ -7,6 +7,7 @@
     <title>Laravel</title>
     {!! Html::style('css/app.css') !!}
     {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
+    {!! Html::style('css/bootstrap-switch.min.css') !!}
     {!! Html::style('css/style.css') !!}
 
     <!-- Fonts -->
@@ -31,6 +32,7 @@
     {!! Html::script('script/isotope.pkgd.min.js'); !!}
     {!! Html::script('script/packery-mode.pkgd.min.js'); !!}
     {!! Html::script('script/jquery.infinitescroll.min.js'); !!}
+    {!! Html::script('script/bootstrap-switch.min.js'); !!}    
     {!! Html::script('script/app.js'); !!}    
     {!! Html::script('script/script.js'); !!}    
   </body>
