@@ -22,10 +22,17 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <l1>View mode<input type="checkbox" name="my-checkbox" checked class="view-toggle" data-on-text="Gird" data-off-text="List"></l1>
+                <li>
+                    <a class="pull-left "><span class="label label-primary lead">View mode</span></a>
+                    @if(session('mode') == "grid")
+                    <input type="checkbox" name="my-checkbox" checked class="view-toggle" data-on-text="Gird" data-off-text="List">
+                    @else
+                    <input type="checkbox" name="my-checkbox" class="view-toggle" data-on-text="Gird" data-off-text="List">
+                    @endif
+                </li>
                 @if (Auth::guest())
                 <li>{!! link_to_route('login', 'Login') !!}</li>
-                <li>{!! link_to_route('signup', 'Sign up') !!}</a></li>  
+                <li>{!! link_to_route('signup', 'Sign up') !!}</li>  
                 @else
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>

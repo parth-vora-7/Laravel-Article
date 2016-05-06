@@ -21,7 +21,7 @@
     </div>
     @endforeach
   </div>
-  <div>
+  <div class="hidden">
     {!! $articles->links() !!}
   </div>
   @else

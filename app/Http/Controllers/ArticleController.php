@@ -21,7 +21,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $mode = $request->session()->get('key', 'default');
+        $mode = $request->session()->get('mode', 'list');
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
@@ -160,7 +160,7 @@ class ArticleController extends Controller {
     
     public function getTrash(Request $request)
     {
-        $mode = $request->session()->get('key', 'default');
+        $mode = $request->session()->get('mode', 'list');
         $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('uid', \Auth::User()->id)->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
@@ -187,7 +187,7 @@ class ArticleController extends Controller {
      */
     
     function userArticles(Request $request) {
-        $mode = $request->session()->get('key', 'default');
+        $mode = $request->session()->get('mode', 'list');
         $articles = Article::myArticles()->withTrashed()->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
@@ -203,6 +203,7 @@ class ArticleController extends Controller {
         } else {
             $mode = 'list';
         }
-        $request->session()->put('key', $mode);
+        $request->session()->put('mode', $mode);
+        return 1;
     }
 }
