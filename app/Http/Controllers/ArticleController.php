@@ -12,7 +12,7 @@ use Gate;
 class ArticleController extends Controller {
 
     function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show', 'gridView']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'gridView', 'viewMode']]);
     }
 
     /**
