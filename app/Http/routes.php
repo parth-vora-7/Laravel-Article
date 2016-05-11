@@ -29,6 +29,6 @@ Route::resource('articles', 'ArticleController');
 
 Route::resource('articles-grid', 'ArticleController@gridView');
 
-Route::get('atrical-view-mode', 'ArticleController@viewMode');
+Route::post('atrical-view-mode', 'ArticleController@viewMode');
 
 

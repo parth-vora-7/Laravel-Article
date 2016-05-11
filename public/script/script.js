@@ -26,7 +26,7 @@ $(document).ready(function () {
   $('.view-toggle').on('switchChange.bootstrapSwitch', function(event, state) {
       $.ajax({
           url: APP_URL + '/atrical-view-mode',
-          method: 'get',
+          method: 'POST',
           dataType: 'json',
           data: {mode: state},
           success: function(res) {
