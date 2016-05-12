@@ -21,6 +21,9 @@
         <![endif]-->
     </head>
     <body ng-controller="articleCtrl">
+        <!--      @{{ yo }}--> {{-- This will be considered as angular's expression an not laravel blade --}}
+        {{-- 'this is comment' --}}
+      
         @include('menu')
         @yield('content')
         <!-- Scripts -->
