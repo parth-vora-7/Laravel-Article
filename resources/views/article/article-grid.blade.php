@@ -14,7 +14,7 @@
             <p><em>Posted by: {{ \App\User::find($article->uid)->name }}</em></p>
             <p><em>Posted on: {{ $article->created_at }}</em></p>
           </div>
-          <div>{{ substr($article->text, 0, rand(100, 400)) }}</div>
+          <div>{{ str_limit($article->text, rand(100, 400)) }}</div>
           <div>@include('article/partials/article-links')</div>
         </div>
       </div>

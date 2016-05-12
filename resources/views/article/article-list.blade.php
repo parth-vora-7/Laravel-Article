@@ -11,14 +11,16 @@
                 <em>Posted by: {{ \App\User::find($article->uid)->name }}</em> |
                 <em>Posted on: {{ $article->created_at }}</em>
             </div>
-            <article>{{ $article->text }}</article>
+            <article>{{ str_limit($article->text, 500) }}</article>
             <div>
                 @include('article/partials/article-links')
             </div>
         </div>
         @endforeach
-        <div class="pagination">
-            {!! $articles->links() !!}
+        <div class="text-center">
+            <div class="pagination">
+                {!! $articles->links() !!}
+            </div>
         </div>
     </div>
     @else
