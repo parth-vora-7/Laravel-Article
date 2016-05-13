@@ -7,13 +7,13 @@
 @endcan
 
 @can('restore-article', $article)
-{!! link_to_route('articles.restore', 'Restore', $article->id, ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
+{!! link_to_route('articles.restore', 'Restore', $article->slug, ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
 @endcan
 
 @can('update-article', $article)
-{!! link_to_route('articles.edit', 'Edit', $article->id, ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
+{!! link_to_route('articles.edit', 'Edit', $article->slug, ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
 @endcan
 
 @if(Request::route()->getName() !== 'articles.show')
-{!! link_to('articles/' . $article->id, 'Read more', ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
+{!! link_to('articles/' . $article->slug, 'Read more', ['class' => 'btn btn-blog pull-right marginBottom10']) !!}
 @endif

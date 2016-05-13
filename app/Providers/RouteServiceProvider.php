@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use SluggableTrait;
     /**
      * This namespace is applied to your controller routes.
      *
@@ -30,8 +32,9 @@ class RouteServiceProvider extends ServiceProvider
         
 /********** Route model binding ************/
         $router->model('articles', 'App\Article');
-        $router->bind('articles', function($id) {
-            return \App\Article::withTrashed()->findOrFail($id);
+        $router->bind('articles', function($slug) {
+            //return \App\Article::withTrashed()->findOrFail($id);
+            return \App\Article::findBySlugOrIdOrFail($slug);
         });
 // If need to apply some specific conditions
 //      $router->bind('articles', function($id) {

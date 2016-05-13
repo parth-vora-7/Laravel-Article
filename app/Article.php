@@ -7,10 +7,18 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Article extends Model
+class Article extends Model implements SluggableInterface
 {
     use SoftDeletes;
+    use SluggableTrait;
+
+    protected $sluggable = [
+        'build_from' => 'title',
+        'save_to'    => 'slug',
+    ];
     /**
      * The attributes that are mass assignable.
      *

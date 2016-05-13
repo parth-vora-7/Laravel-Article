@@ -20,10 +20,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 $factory->define(App\Article::class, function (Faker\Generator $faker) {
+    $title = $faker->sentence;
     return [
-        'title' => $faker->sentence,
+        'title' => $title,
         'uid' => $faker->numberBetween(4, 6),
         'text' => $faker->text(1000),
+        'slug' => App\Article::createSlug($title),
         'published_at' => $faker->date,
     ];
 });

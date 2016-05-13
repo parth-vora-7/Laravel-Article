@@ -41,6 +41,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->singleton(
+    Cviebrock\EloquentSluggable\SluggableRouter::class,
+    router::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

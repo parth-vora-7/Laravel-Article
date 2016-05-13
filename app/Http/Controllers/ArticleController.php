@@ -138,6 +138,7 @@ class ArticleController extends Controller {
      */
     public function destroy(Article $article, Request $request) 
     {
+        dd($article);
         if($article->trashed() && $request->user()->can('delete-article', $article)) {
             $article->forceDelete();
             $request->session()->flash('alert-class', 'alert-success');
