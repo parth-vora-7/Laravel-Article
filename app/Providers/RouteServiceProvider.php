@@ -32,9 +32,9 @@ class RouteServiceProvider extends ServiceProvider
         
 /********** Route model binding ************/
         $router->model('articles', 'App\Article');
-        $router->bind('articles', function($slug) {
+        $router->bind('articles', function($slugOrId) {
             //return \App\Article::withTrashed()->findOrFail($id);
-            return \App\Article::withTrashed()->where('slug', '=', $slug)->firstOrFail();
+            return \App\Article::withTrashed()->where('slug', '=', $slugOrId)->orWhere('id', '=', $slugOrId)->firstOrFail();
             //return \App\Article::findBySlugOrIdOrFail($slug);
         });
 // If need to apply some specific conditions
