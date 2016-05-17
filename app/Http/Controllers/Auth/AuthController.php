@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Storage;
+use Illuminate\Support\Facades\File;
 
 class AuthController extends Controller
 {
@@ -62,11 +64,21 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    {      
+      $file_path = null;
+      $file = $data['profile_pic'];
+      $name = $file->getClientOriginalName();
+      if(Storage::put($name, File::get($file->getRealPath()))) {
+        $file_path = Storage::url($data['profile_pic']->getClientOriginalName());
+      }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'sex' => $data['sex'],
+            'user_pic' => $file_path,
+            'contact_no' => $data['contact_no'],
+            'address' => $data['address']
         ]);
     }
 }

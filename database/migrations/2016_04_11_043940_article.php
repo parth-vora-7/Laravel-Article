@@ -17,6 +17,7 @@ class Article extends Migration
             $table->integer('uid')->references('id')->on('users')->onDelete('cascade');
             $table->string('title');
             $table->text('text');
+            $table->string('slug');
             $table->timestamp('published_at');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 'public',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/public/user_pics'),
             'visibility' => 'public',
         ],
 
@@ -61,7 +61,6 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
-
     ],
 
 ];
