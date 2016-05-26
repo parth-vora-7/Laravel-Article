@@ -10,7 +10,7 @@
          <div>
             <h1>{!! link_to('articles/' . $article->slug, $article->title) !!}</h1>
             <div>
-                <em>Posted by: {{ \App\User::find($article->uid) ? \App\User::find($article->uid)->name : 'Not exist'}}</em> |
+                <em>Posted by: {{ \App\User::find($article->uid) ? \App\User::find($article->uid)->name : 'Not exist' }}</em> |
                 <em>Posted on: {{ $article->created_at }}</em>
             </div>
             <article>{{ str_limit($article->text, 500) }}</article>
