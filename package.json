@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "angular": "^1.5.5",
+    "angular-utils-pagination": "^0.11.1",
     "bootstrap-sass": "^3.0.0",
     "laravel-elixir": "^5.0.0"
   }

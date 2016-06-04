@@ -26,11 +26,11 @@ class AuthServiceProvider extends ServiceProvider {
         $this->registerPolicies($gate);
 
         $gate->define('update-article', function($user, $article) {
-            return $user->id == $article->uid;
+            return $user->id == $article->user_id;
         });
 
         $gate->define('delete-article', function($user, $article) {
-            if ($article->trashed() && ($user->id == $article->uid)) {
+            if ($article->trashed() && ($user->id == $article->user_id)) {
                 return true;
             } else {
                 return false;
@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider {
         });
 
         $gate->define('trash-article', function($user, $article) {
-            if (!$article->trashed() && ($user->id == $article->uid)) {
+            if (!$article->trashed() && ($user->id == $article->user_id)) {
                 return true;
             } else {
                 return false;
@@ -46,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider {
         });
 
         $gate->define('restore-article', function($user, $article) {
-            if ($article->trashed() && $user->id == $article->uid) {
+            if ($article->trashed() && $user->id == $article->user_id) {
                 return true;
             } else {
                 return false;

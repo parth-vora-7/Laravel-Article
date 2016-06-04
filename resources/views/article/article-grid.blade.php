@@ -11,7 +11,7 @@
         <div class="panel-heading"><h4>{!! link_to('articles/' . $article->slug, $article->title) !!}</h4></div>
         <div class="panel-body">
           <div>
-            <p><em>Posted by: {{ \App\User::find($article->uid) ? \App\User::find($article->uid)->name : 'Not exist' }}</em></p>
+            <p><em>Posted by: {{ \App\User::find($article->user_id) ? \App\User::find($article->user_id)->name : 'Not exist' }}</em></p>
             <p><em>Posted on: {{ $article->created_at }}</em></p>
           </div>
           <div>{{ str_limit($article->text, rand(100, 400)) }}</div>

@@ -12,7 +12,7 @@ use Gate;
 class ArticleController extends Controller {
 
     function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show', 'gridView', 'viewMode']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'gridView', 'viewMode', 'articlePagination']]);
     }
 
     /**
@@ -25,11 +25,11 @@ class ArticleController extends Controller {
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
-        
+
     /*
      * To display articles in grid view
      */
-    
+
     function gridView() {
         $articles = Article::orderBy('published_at', 'desc')->published()->paginate(5);
         return view('article.article-grid', ['articles' => $articles]);
@@ -67,7 +67,7 @@ class ArticleController extends Controller {
 
         /* Save record using create() - Mass assignment */
         $article = Auth::User()->articles()->create($request->all());
-        if($article) {
+        if ($article) {
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'New article has been created successfully.');
             return redirect('articles');
@@ -99,12 +99,11 @@ class ArticleController extends Controller {
 //        if (Gate::denies('update-article', $article)) {
 //            abort(403);
 //        }
-        
 // Method 2
-        if($request->user()->cannot('update-article', $article)) {
+        if ($request->user()->cannot('update-article', $article)) {
             abort(403);
         }
-        
+
         return view('article.edit-article', ['article' => $article]);
     }
 
@@ -116,7 +115,7 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Article $article, ArticleRequest $request) {
-        if($request->user()->cannot('update-article', $article)) {
+        if ($request->user()->cannot('update-article', $article)) {
             abort(403);
         }
         if ($article->update($request->all())) {
@@ -136,9 +135,8 @@ class ArticleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article, Request $request) 
-    {
-        if($article->trashed() && $request->user()->can('delete-article', $article)) {
+    public function destroy(Article $article, Request $request) {
+        if ($article->trashed() && $request->user()->can('delete-article', $article)) {
             $article->forceDelete();
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been successfully removed.');
@@ -152,27 +150,23 @@ class ArticleController extends Controller {
             abort(403);
         }
     }
-    
+
     /**
      * To show list of soft deleted articles
      * return 
      */
-    
-    public function getTrash(Request $request)
-    {
+    public function getTrash(Request $request) {
         $mode = $request->session()->get('mode', 'list');
-        $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('uid', \Auth::User()->id)->paginate(5);
+        $articles = Article::onlyTrashed()->orderBy('published_at', 'desc')->where('user_id', \Auth::User()->id)->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
-    
+
     /**
      * To restore a soft deleted article
      * @param \App\Article $article
      */
-    
-    public function restoreArticle(Article $article, Request $request) 
-    {
-        if($request->user()->cannot('restore-article', $article)) {
+    public function restoreArticle(Article $article, Request $request) {
+        if ($request->user()->cannot('restore-article', $article)) {
             abort(403);
         }
         $request->session()->flash('alert-class', 'alert-success');
@@ -180,25 +174,24 @@ class ArticleController extends Controller {
         $article->restore();
         return back();
     }
-    
+
     /**
      * To get only logged in user's articles
      * 
      */
-    
     function userArticles(Request $request) {
         $mode = $request->session()->get('mode', 'list');
         $articles = Article::myArticles()->withTrashed()->paginate(5);
         return view('article.article-' . $mode, ['articles' => $articles]);
     }
-    
+
     /*
      * To change the article view mode
      * 
      */
-    
+
     function viewMode(Request $request) {
-        if($request->get('mode') == "true") {
+        if ($request->get('mode') == "true") {
             $mode = 'grid';
         } else {
             $mode = 'list';
@@ -206,4 +199,26 @@ class ArticleController extends Controller {
         $request->session()->put('mode', $mode);
         return 1;
     }
+
+    /*
+     * Pagination handler to display articles using AngularJS
+     * @param $pageno int 
+     * @retutn $articles mix
+     */
+
+    function articlePagination($pageno, $perpage) {
+        $limitfrom = ($pageno - 1) * $perpage;
+        // $articles = Article::skip($limitfrom)->take($perpage)->get();
+
+        $articles = \DB::table('users')
+                ->leftJoin('articles', 'articles.user_id', '=', 'users.id')
+                ->select('articles.*', 'users.name')
+                ->skip($limitfrom)->take($perpage)
+                ->orderBy('articles.id', 'asc')
+                ->get();
+        $articles['totalarticles'] = count($articles);
+
+        return response()->json($articles, 200);
+    }
+
 }

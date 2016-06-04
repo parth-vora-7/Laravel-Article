@@ -39,7 +39,7 @@ class Article extends Model implements SluggableInterface
     
     public function user() 
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\User');
     }
     
     /**
@@ -59,7 +59,7 @@ class Article extends Model implements SluggableInterface
      */
     
     public function scopeMyArticles($query) {
-        return $query->where('uid', Auth::User()->id);
+        return $query->where('user_id', Auth::User()->id);
     }
  
 }

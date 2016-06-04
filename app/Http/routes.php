@@ -25,6 +25,8 @@ Route::get('trash', [ 'as' => 'trash.list' , 'uses' => 'ArticleController@getTra
 Route::get('restore/{articles}', [ 'as' => 'articles.restore' , 'uses' => 'ArticleController@restoreArticle']);
 
 Route::get('my-articles', [ 'as' => 'my-articles' , 'uses' => 'ArticleController@userArticles']);
+
+Route::get('articles/page/{pageno}/{perpage}', 'ArticleController@articlePagination');
 Route::resource('articles', 'ArticleController');
 
 Route::resource('articles-grid', 'ArticleController@gridView');

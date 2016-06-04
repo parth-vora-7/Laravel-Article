@@ -36,6 +36,7 @@
         {!! Html::script('script/bootstrap-switch.min.js'); !!}    
         {!! Html::script('script/app.js'); !!}    
         {!! Html::script('script/script.js'); !!}    
+        {!! Html::script('script/angular-utils-pagination/dirPagination.js'); !!}    
         <script type="text/javascript">
             var APP_URL = {!! json_encode(url('/')) !!};
             $.ajaxSetup({
