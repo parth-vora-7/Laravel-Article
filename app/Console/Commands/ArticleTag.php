@@ -4,24 +4,25 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Article;
-use App\User;
+use App\Tag;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-class ArticleUser extends Command {
+class ArticleTag extends Command {
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'db:articleuser';
+    protected $signature = 'db:articletag';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'To assign users to the articles';
+    protected $description = 'To assign tags to the articles';
 
     /**
      * Create a new command instance.
@@ -38,11 +39,12 @@ class ArticleUser extends Command {
      * @return mixed
      */
     public function handle() {
-        $user_ids = User::pluck('id');
-        if (!$user_ids) {
-            $this->error('No user exist in database');
+        $tag_ids = Tag::pluck('id');
+        if (!$tag_ids) {
+            $this->error('No tag exist in database');
             exit;
         }
+
         $article_ids = Article::pluck('id')->toArray();
 
         if (!$article_ids) {
@@ -52,8 +54,9 @@ class ArticleUser extends Command {
 
         $bar = $this->output->createProgressBar(count($article_ids));
 
+        DB::table('article_tag')->truncate();
         foreach ($article_ids as $aid) {
-            DB::table('articles')->where('id', $aid)->update(['user_id' => $user_ids->random()]);
+            DB::table('article_tag')->insert(['article_id' => $aid, 'tag_id' => $tag_ids->random(), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
             $bar->advance();
         }
         $bar->finish();

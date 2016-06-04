@@ -61,5 +61,9 @@ class Article extends Model implements SluggableInterface
     public function scopeMyArticles($query) {
         return $query->where('user_id', Auth::User()->id);
     }
+    
+    public function tags() {
+        return $this->hasMany('App\Tag')->withTimestamps();
+    }
  
 }

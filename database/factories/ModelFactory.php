@@ -29,3 +29,9 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
         'published_at' => $faker->date,
     ];
 });
+$factory->define(App\Tag::class, function(Faker\Generator $faker) {
+    return 
+    [
+        'name' => $faker->word
+    ];
+});
