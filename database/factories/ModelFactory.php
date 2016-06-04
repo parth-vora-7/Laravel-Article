@@ -23,7 +23,7 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
     $title = $faker->sentence;
     return [
         'title' => $title,
-        'uid' => $faker->numberBetween(4, 6),
+//        'user_id' => $faker->numberBetween(1, 6),
         'text' => $faker->text(1000),
         'slug' => App\Article::createSlug($title),
         'published_at' => $faker->date,

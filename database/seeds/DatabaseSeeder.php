@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-//        User::truncate();
-//        factory(User::class, 5)->create();
+        User::truncate();
+        factory(User::class, 5)->create();
         
         Article::truncate();
         factory(Article::class, 50)->create();

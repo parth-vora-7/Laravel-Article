@@ -14,7 +14,7 @@ class Article extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('uid')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->string('title');
             $table->text('text');
             $table->string('slug');
