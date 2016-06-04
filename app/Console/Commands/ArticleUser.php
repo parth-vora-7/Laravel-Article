@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Article;
 use App\User;
-use Illuminate\Support\Facades\DB;
 
 class ArticleUser extends Command {
 
@@ -53,7 +52,9 @@ class ArticleUser extends Command {
         $bar = $this->output->createProgressBar(count($article_ids));
 
         foreach ($article_ids as $aid) {
-            DB::table('articles')->where('id', $aid)->update(['user_id' => $user_ids->random()]);
+            $article = Article::find($aid);
+            $article->user_id = $user_ids->random();
+            $article->save();
             $bar->advance();
         }
         $bar->finish();

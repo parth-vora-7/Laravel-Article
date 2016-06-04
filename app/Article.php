@@ -10,15 +10,17 @@ use Auth;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Article extends Model implements SluggableInterface
-{
+class Article extends Model implements SluggableInterface {
+
     use SoftDeletes;
-    use SluggableTrait;
+
+use SluggableTrait;
 
     protected $sluggable = [
         'build_from' => 'title',
-        'save_to'    => 'slug',
+        'save_to' => 'slug',
     ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,40 +32,40 @@ class Article extends Model implements SluggableInterface
         'published_at'
     ];
     protected $dates = ['published_at', 'deleted_at'];
-    
+
     /**
      * Get author of a article
      * 
      * @return mix
      */
-    
-    public function user() 
-    {
+    public function user() {
         return $this->belongsTo('App\User');
     }
-    
+
     /**
      * To show only publihsed articles
      * 
      * @param mix $query
      * @return mix
      */
-    
-    public function scopePublished($query) 
-    {
-        $query->where('published_at', '<=' , Carbon::now()); 
+    public function scopePublished($query) {
+        $query->where('published_at', '<=', Carbon::now());
     }
-    
-     /**
+
+    /**
      * To filter logged in users articles
      */
-    
     public function scopeMyArticles($query) {
         return $query->where('user_id', Auth::User()->id);
     }
-    
+
+    /**
+     * Get tags assigned to a article
+     * 
+     * @return mix
+     */
     public function tags() {
-        return $this->hasMany('App\Tag')->withTimestamps();
+        return $this->belongsToMany('App\Tag')->withTimestamps();
     }
- 
+
 }

@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use App\Article;
 use App\Tag;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class ArticleTag extends Command {
 
@@ -56,7 +55,9 @@ class ArticleTag extends Command {
 
         DB::table('article_tag')->truncate();
         foreach ($article_ids as $aid) {
-            DB::table('article_tag')->insert(['article_id' => $aid, 'tag_id' => $tag_ids->random(), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $article = Article::find($aid);
+            $article->tags()->attach($tag_ids->random());
+            $article->save();
             $bar->advance();
         }
         $bar->finish();
