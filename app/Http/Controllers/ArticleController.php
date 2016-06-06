@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use App\Article;
+use App\Tag;
 use Auth;
 use Gate;
 
@@ -41,7 +42,9 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('article.add-article');
+        $tags = Tag::lists('name', 'id');
+        
+        return view('article.add-article', ['tags' => $tags]);
     }
 
     /**
@@ -66,7 +69,10 @@ class ArticleController extends Controller {
 //        $article->save();
 
         /* Save record using create() - Mass assignment */
+        //dd($request->get('tags'));
         $article = Auth::User()->articles()->create($request->all());
+        $article->tags()->sync($request->get('tag_list'));
+
         if ($article) {
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'New article has been created successfully.');
@@ -103,8 +109,11 @@ class ArticleController extends Controller {
         if ($request->user()->cannot('update-article', $article)) {
             abort(403);
         }
-
-        return view('article.edit-article', ['article' => $article]);
+        
+        $tags = Tag::lists('name', 'id');
+        //dd($article->tags);
+        //dd(Article::find(59));
+        return view('article.edit-article', ['article' => $article, 'tags' => $tags]);
     }
 
     /**
