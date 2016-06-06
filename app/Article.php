@@ -69,7 +69,7 @@ use SluggableTrait;
     }
     
     public function getTagListAttribute() {
-        return $this->tags->lists('id');
+        return $this->tags->lists('id')->toArray();
     }
 
 }

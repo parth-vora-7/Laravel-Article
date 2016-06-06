@@ -127,7 +127,9 @@ class ArticleController extends Controller {
         if ($request->user()->cannot('update-article', $article)) {
             abort(403);
         }
-        if ($article->update($request->all())) {
+        $updated_article = $article->update($request->all());
+        $updated_article = $article->tags()->sync($request->get('tag_list'));
+        if ($updated_article) {
             $request->session()->flash('alert-class', 'alert-success');
             $request->session()->flash('message', 'Article has been updated successfully.');
             return redirect('articles');
