@@ -33,4 +33,10 @@ Route::resource('articles-grid', 'ArticleController@gridView');
 
 Route::post('atrical-view-mode', 'ArticleController@viewMode');
 
+Route::get('user/change-password', 'UserController@editPassword');
+Route::put('user/change-password', 'UserController@updatePassword');
+
+Route::resource('user', 'UserController');
+
+
 

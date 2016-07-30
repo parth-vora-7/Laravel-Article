@@ -33,4 +33,24 @@ class User extends Authenticatable
     public function articles() {
         return $this->hasMany('App\Article');
     }
+    
+    public function getSexAttribute($value) {
+        if($value === 'M') {
+            return 'Male';
+        } else if($value === 'F') {
+            return 'Female';
+        }
+    }
+    
+    public function setSexAttribute($value) {
+        if($value === 'Male') {
+             $this->attributes['sex'] = 'M';
+        } else if($value === 'Female') {
+            $this->attributes['sex'] = 'F';
+        }
+    }
+    
+    public function setUserPicAttribute($value) {
+        dd($value);
+    }
 }

@@ -52,6 +52,14 @@ class AuthServiceProvider extends ServiceProvider {
                 return false;
             }
         });
+        
+        $gate->define('update-user', function($user, $edit_user) {
+            if($user->id  === $edit_user->id) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        });
     }
 
 }

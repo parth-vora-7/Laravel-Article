@@ -37,7 +37,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li>{!! link_to_route('logout', 'Logout') !!}</li>  
+                        <li>{!! link_to('user/' . Auth::user()->id .'/edit', 'Edit profile') !!}</li>
+                        <li>{!! link_to('user/change-password', 'Change password') !!}</li>
+                        <li>{!! link_to_route('logout', 'Logout') !!}</li>
                     </ul>
                 </li>
                 @endif
